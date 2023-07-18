@@ -1,0 +1,10 @@
+<app-banner></app-banner>
+<div class="py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3" *ngFor="let anuncio of anuncios">
+        <app-card [anuncio]="anuncio"></app-card>
+      </div>
+    </div>
+  </div>
+</div>

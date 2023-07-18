@@ -1,0 +1,31 @@
+<h2>Anúncios</h2>
+
+<div class="mb-3">
+  <a class="btn btn-sm btn-primary" routerLink="/admin/classificados/adicionar">+ Adicionar</a>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-sm">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Título</th>
+      <th>Preço</th>
+      <th class="text-nowrap text-center">Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let anuncio of anuncios">
+      <td>{{anuncio.id}}</td>
+      <td>{{anuncio.title}}</td>
+      <td>
+        R$ {{anuncio.price.toFixed(2)}}
+      </td>
+      <td class="text-nowrap text-center">
+        <a class="btn btn-sm btn-primary" [routerLink]="['/admin/classificados/editar', anuncio.id]">editar</a>
+        <a class="btn btn-sm btn-danger ml-1" [routerLink]="['/admin/classificados/remover', anuncio.id]">excluir</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
