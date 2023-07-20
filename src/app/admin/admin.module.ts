@@ -10,6 +10,9 @@ import {AdminClassificadosAdicionarComponent} from './classificados/admin-classi
 import {AdminClassificadosEditarComponent} from './classificados/admin-classificados-editar/admin-classificados-editar.component';
 import {AdminClassificadosRemoverComponent} from './classificados/admin-classificados-remover/admin-classificados-remover.component';
 import {AdminRoutingModule} from "./admin-routing.module";
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import {FormsModule} from "@angular/forms";
+import { AdminClassificadosFormComponent } from './classificados/admin-classificados-form/admin-classificados-form.component';
 
 @NgModule({
   declarations: [
@@ -21,10 +24,13 @@ import {AdminRoutingModule} from "./admin-routing.module";
     AdminClassificadosListarComponent,
     AdminClassificadosAdicionarComponent,
     AdminClassificadosEditarComponent,
-    AdminClassificadosRemoverComponent
+    AdminClassificadosRemoverComponent,
+    AdminDashboardComponent,
+    AdminClassificadosFormComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     AdminRoutingModule
   ]
 })

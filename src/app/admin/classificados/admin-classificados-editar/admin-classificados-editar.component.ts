@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {Anuncio} from "../../../anuncio";
+import {Component, OnInit} from '@angular/core';
+import {Anuncio} from "../../../models/anuncio";
 import {AnunciosService} from "../../../anuncios.service";
 import {ActivatedRoute} from "@angular/router";
 
@@ -8,21 +8,19 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './admin-classificados-editar.component.html',
   styleUrls: ['./admin-classificados-editar.component.css']
 })
-export class AdminClassificadosEditarComponent {
+export class AdminClassificadosEditarComponent implements OnInit {
   anuncio: Anuncio = new Anuncio();
 
   constructor(private route: ActivatedRoute, private anunciosService: AnunciosService) {
   }
 
-  getAnuncio(id: number) {
-    return this.anunciosService.getById(id).then((data: any) => {
-      this.anuncio = data;
-    });
+  getAnuncio(id: number): Anuncio | undefined {
+    return this.anunciosService.getById(id);
   }
 
   ngOnInit() {
     let id: number = +this.route.snapshot.params['id'];
 
-    this.getAnuncio(id);
+    this.anuncio = this.getAnuncio(id)!;
   }
 }

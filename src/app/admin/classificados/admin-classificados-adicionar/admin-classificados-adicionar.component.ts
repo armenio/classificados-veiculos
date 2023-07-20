@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Anuncio} from "../../../models/anuncio";
 
 @Component({
   selector: 'app-admin-classificados-adicionar',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./admin-classificados-adicionar.component.css']
 })
 export class AdminClassificadosAdicionarComponent {
-
+  anuncio: Anuncio = new Anuncio();
 }

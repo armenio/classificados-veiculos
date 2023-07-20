@@ -7,6 +7,8 @@ import {AdminClassificadosAdicionarComponent} from "./classificados/admin-classi
 import {AdminClassificadosEditarComponent} from "./classificados/admin-classificados-editar/admin-classificados-editar.component";
 import {AdminClassificadosRemoverComponent} from "./classificados/admin-classificados-remover/admin-classificados-remover.component";
 import {AdminCrudLayoutComponent} from "./admin-crud-layout/admin-crud-layout.component";
+import {authenticationGuard} from "../authentication.guard";
+import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
 
 const routes: Routes = [
   {
@@ -16,8 +18,18 @@ const routes: Routes = [
       {path: '', redirectTo: '/admin/login', pathMatch: 'full'},
       {path: 'login', component: AdminLoginComponent},
       {
+        path: 'dashboard',
+        component: AdminCrudLayoutComponent,
+        canActivate: [authenticationGuard],
+        children: [
+          {path: '', component: AdminDashboardComponent},
+        ]
+      },
+      {
         path: 'classificados',
         component: AdminCrudLayoutComponent,
+        canActivate: [authenticationGuard],
+        canActivateChild: [authenticationGuard],
         children: [
           {path: '', component: AdminClassificadosListarComponent},
           {path: 'adicionar', component: AdminClassificadosAdicionarComponent},
