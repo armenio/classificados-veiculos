@@ -15,8 +15,7 @@ export class IndexComponent implements OnInit {
   }
 
   getAnuncios(): void {
-    this.anunciosService.getAll().then((anuncios: Anuncio[] | undefined) => {
-      console.log(this.anuncios)
+    this.anunciosService.getAll().subscribe((anuncios: Anuncio[] | undefined) => {
       this.anuncios = anuncios!;
     });
   }

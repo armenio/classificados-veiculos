@@ -17,7 +17,7 @@ export class AdminClassificadosEditarComponent implements OnInit {
   }
 
   getAnuncio(id: number): void {
-    this.anunciosService.getById(id).then((anuncio: Anuncio | undefined) => {
+    this.anunciosService.getById(id).subscribe((anuncio: Anuncio | undefined) => {
       this.anuncio = anuncio!;
 
       if (anuncio !== undefined) {

@@ -4,6 +4,7 @@ import {Picture} from "../../../models/picture";
 import {AnunciosService} from "../../../anuncios.service";
 import {Router} from "@angular/router";
 import {compress, decompress} from 'lz-string';
+import {lastValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-admin-classificados-form',
@@ -22,13 +23,21 @@ export class AdminClassificadosFormComponent implements OnInit {
   transmissions: string[] = [];
   colors: string[] = [];
   pics: any;
+  hasNewPics: boolean = false;
+  oldPictures: Picture[] = [];
 
   onSubmit() {
-    this.anunciosService.save(this.model).then((anuncio: Anuncio | undefined) => {
-      for (let picture of this.pictures) {
-        this.anunciosService.savePicture(anuncio!, picture);
+    this.anunciosService.save(this.model).subscribe(async (anuncio: Anuncio | undefined) => {
+      if (this.hasNewPics) {
+        for (let picture of this.oldPictures) {
+          await lastValueFrom(this.anunciosService.deletePicture(picture));
+        }
+
+        for (let picture of this.pictures) {
+          await lastValueFrom(this.anunciosService.savePicture(anuncio!, picture));
+        }
       }
-    }).finally(() => {
+
       this.router.navigate(['/admin/classificados']);
     });
   }
@@ -42,6 +51,10 @@ export class AdminClassificadosFormComponent implements OnInit {
   handleUpload(event: any) {
     if (!event.target.files.length) {
       return;
+    }
+
+    if (!this.hasNewPics) {
+      this.oldPictures = [...this.pictures];
     }
 
     this.pictures = [];
@@ -60,6 +73,8 @@ export class AdminClassificadosFormComponent implements OnInit {
         this.pictures.push(picture);
       };
     }
+
+    this.hasNewPics = true;
   }
 
   decompress(str: string): string {

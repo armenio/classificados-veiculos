@@ -16,7 +16,7 @@ export class AdminClassificadosListarComponent implements OnInit {
   }
 
   getAnuncios(): void {
-    this.anunciosService.getAll().then((anuncios: Anuncio[] | undefined) => {
+    this.anunciosService.getAll().subscribe((anuncios: Anuncio[] | undefined) => {
       this.anuncios = anuncios!;
     });
   }
@@ -26,9 +26,7 @@ export class AdminClassificadosListarComponent implements OnInit {
       return;
     }
 
-    this.anunciosService.delete(anuncio).then((anuncio: Anuncio | undefined) => {
-
-    }).finally(() => {
+    this.anunciosService.delete(anuncio).subscribe((anuncio: Anuncio | undefined) => {
       this.getAnuncios();
     });
   }

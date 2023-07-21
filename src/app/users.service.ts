@@ -17,10 +17,6 @@ export class UsersService {
   constructor(private http: HttpClient) {
   }
 
-  getByUsernameAndPassword2(username: string, password: string): User | undefined {
-    return USERS.find(user => user.username === username && user.password === password);
-  }
-
   getByUsernameAndPassword(username: string, password: string): Observable<User[] | undefined> {
     return this.http.get<User[]>(`${this.baseURL}?username=${username}&password=${password}`);
   }
