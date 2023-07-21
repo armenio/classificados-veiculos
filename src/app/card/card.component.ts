@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {Anuncio} from "../models/anuncio";
+import {decompress} from 'lz-string';
 
 @Component({
   selector: 'app-card',
@@ -8,4 +9,8 @@ import {Anuncio} from "../models/anuncio";
 })
 export class CardComponent {
   @Input() anuncio: Anuncio = new Anuncio();
+
+  decompress(str: string): string {
+    return decompress(str);
+  }
 }

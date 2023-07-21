@@ -14,6 +14,14 @@
   </div>
   <div class="row">
     <div class="col-12">
+      <div class="custom-control custom-checkbox mb-3">
+        <input type="checkbox" class="custom-control-input" id="isHighlight" name="isHighlight" [(ngModel)]="this.model.isHighlight">
+        <label class="custom-control-label" for="isHighlight">Marcar como destaque</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
       <div class="form-group">
         <label for="description">Descrição</label>
         <textarea rows="5" class="form-control" id="description" name="description" [(ngModel)]="this.model.description"></textarea>
@@ -28,7 +36,7 @@
         <small id="licensePlateHelp" class="form-text text-muted">A placa não será divulgada.</small>
         <div *ngIf="licensePlate.invalid && (licensePlate.dirty || licensePlate.touched)">
           <div *ngIf="licensePlate.errors?.['required']" class="invalid-feedback d-block">Informe a placa do veículo</div>
-          <div *ngIf="licensePlate.errors?.['pattern']" class="invalid-feedback d-block">Placa em formato inválido</div>
+          <div *ngIf="licensePlate.errors?.['pattern']" class="invalid-feedback d-block">Placa em formato inválido (AAA0000 ou AAA0A00)</div>
         </div>
       </div>
     </div>
@@ -217,16 +225,16 @@
       <div class="form-group">
         <label>Fotos</label>
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="pics" name="pics[]" multiple accept="image/jpeg, image/png, image/webp, image/gif" [(ngModel)]="this.pictures" #pics="ngModel" (change)="handleUpload($event)" [required]="this.model.pictures.length === 0">
+          <input type="file" class="custom-file-input" id="pics" name="pics[]" multiple accept="image/jpeg, image/png, image/webp, image/gif" [(ngModel)]="this.pics" #_pics="ngModel" (change)="handleUpload($event)" [required]="this.pictures.length === 0">
           <label class="custom-file-label" for="pics">Selecionar Fotos</label>
-          <div *ngIf="pics.invalid && (pics.dirty || pics.touched)">
-            <div *ngIf="pics.errors?.['required']" class="invalid-feedback d-block">Selecione as fotos do anúncio</div>
+          <div *ngIf="_pics.invalid && (_pics.dirty || _pics.touched)">
+            <div *ngIf="_pics.errors?.['required']" class="invalid-feedback d-block">Selecione as fotos do anúncio</div>
           </div>
         </div>
       </div>
-      <div class="row" *ngIf="this.model.pictures.length > 0">
-        <div class="col-3 mb-3" *ngFor="let picture of this.model.pictures">
-          <img src="{{picture.src}}" width="100%" height="100" style="object-fit: cover"/>
+      <div class="row" *ngIf="this.pictures.length > 0">
+        <div class="col-3 mb-3" *ngFor="let picture of this.pictures">
+          <img src="{{this.decompress(picture.src)}}" width="100%" height="100" style="object-fit: cover"/>
         </div>
       </div>
     </div>

@@ -15,7 +15,10 @@ export class IndexComponent implements OnInit {
   }
 
   getAnuncios(): void {
-    this.anuncios = this.anunciosService.getAll();
+    this.anunciosService.getAll().then((anuncios: Anuncio[] | undefined) => {
+      console.log(this.anuncios)
+      this.anuncios = anuncios!;
+    });
   }
 
   ngOnInit() {

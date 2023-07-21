@@ -23,7 +23,7 @@
       </td>
       <td class="text-nowrap text-center">
         <a class="btn btn-sm btn-primary" [routerLink]="['/admin/classificados/editar', anuncio.id]">editar</a>
-        <a class="btn btn-sm btn-danger ml-1" [routerLink]="['/admin/classificados/remover', anuncio.id]">excluir</a>
+        <a class="btn btn-sm btn-danger ml-1" (click)="removeAnuncio(anuncio)">excluir</a>
       </td>
     </tr>
     </tbody>

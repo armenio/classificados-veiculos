@@ -8,11 +8,11 @@ import {AdminLoginComponent} from './admin-login/admin-login.component';
 import {AdminClassificadosListarComponent} from './classificados/admin-classificados-listar/admin-classificados-listar.component';
 import {AdminClassificadosAdicionarComponent} from './classificados/admin-classificados-adicionar/admin-classificados-adicionar.component';
 import {AdminClassificadosEditarComponent} from './classificados/admin-classificados-editar/admin-classificados-editar.component';
-import {AdminClassificadosRemoverComponent} from './classificados/admin-classificados-remover/admin-classificados-remover.component';
 import {AdminRoutingModule} from "./admin-routing.module";
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import {FormsModule} from "@angular/forms";
 import { AdminClassificadosFormComponent } from './classificados/admin-classificados-form/admin-classificados-form.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -24,13 +24,13 @@ import { AdminClassificadosFormComponent } from './classificados/admin-classific
     AdminClassificadosListarComponent,
     AdminClassificadosAdicionarComponent,
     AdminClassificadosEditarComponent,
-    AdminClassificadosRemoverComponent,
     AdminDashboardComponent,
     AdminClassificadosFormComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
     AdminRoutingModule
   ]
 })

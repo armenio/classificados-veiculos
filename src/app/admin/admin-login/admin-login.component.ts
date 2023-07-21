@@ -19,12 +19,12 @@ export class AdminLoginComponent {
   }
 
   onSubmit() {
-    this.authenticationService.login(this.username, this.password);
-
-    if (this.authenticationService.isLoggedIn) {
-      this.router.navigate(['/admin/dashboard']);
-    } else {
-      this.message = 'Usuário ou senha inválidos'
-    }
+    this.authenticationService.login(this.username, this.password).subscribe(() => {
+      if (this.authenticationService.isLoggedIn) {
+        this.router.navigate(['/admin/dashboard']);
+      } else {
+        this.message = 'Usuário ou senha inválidos'
+      }
+    });
   }
 }

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AnunciosService} from "../../../anuncios.service";
 import {Anuncio} from "../../../models/anuncio";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-classificados-listar',
@@ -11,11 +12,25 @@ import {Anuncio} from "../../../models/anuncio";
 export class AdminClassificadosListarComponent implements OnInit {
   anuncios: Anuncio[] = [];
 
-  constructor(private anunciosService: AnunciosService) {
+  constructor(private anunciosService: AnunciosService, private router: Router) {
   }
 
   getAnuncios(): void {
-    this.anuncios = this.anunciosService.getAll();
+    this.anunciosService.getAll().then((anuncios: Anuncio[] | undefined) => {
+      this.anuncios = anuncios!;
+    });
+  }
+
+  removeAnuncio(anuncio: Anuncio): void {
+    if (!confirm("Tem certeza")) {
+      return;
+    }
+
+    this.anunciosService.delete(anuncio).then((anuncio: Anuncio | undefined) => {
+
+    }).finally(() => {
+      this.getAnuncios();
+    });
   }
 
   ngOnInit() {

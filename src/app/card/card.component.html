@@ -1,5 +1,5 @@
 <div class="card mb-4 box-shadow">
-  <img class="card-img-top" src="{{this.anuncio.pictures[0].src}}">
+  <img class="card-img-top" src="{{this.decompress(this.anuncio.pictures[0].src)}}">
   <div class="card-body">
     <p class="card-text mb-0">
       {{anuncio.title}} <span class="badge badge-success" *ngIf="this.anuncio.isHighlight">DESTAQUE</span>

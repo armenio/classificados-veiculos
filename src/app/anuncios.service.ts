@@ -1,46 +1,41 @@
 import {Injectable} from '@angular/core';
 import {Anuncio} from "./models/anuncio";
-
-const KEY_ANUNCIOS = 'anuncios';
+import {HttpClient} from "@angular/common/http";
+import {Picture} from "./models/picture";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnunciosService {
+  baseURL: string = 'http://localhost:3000/anuncios';
 
-  anuncios: Anuncio[] = [];
+  picturesURL: string = 'http://localhost:3000/pictures';
 
-  constructor() {
-    let anuncios = localStorage.getItem(KEY_ANUNCIOS);
-    this.anuncios = anuncios ? JSON.parse(anuncios) as Anuncio[] : [];
-    // localStorage.removeItem(KEY_ANUNCIOS);
+  constructor(private http: HttpClient) {
   }
 
-  getNextId(): number {
-    if (this.anuncios.length === 0) {
-      return 1;
-    }
-
-    return (this.anuncios[this.anuncios.length-1].id!) + 1;
+  getAll(): Promise<Anuncio[] | undefined> {
+    return this.http.get<Anuncio[]>(`${this.baseURL}?_embed=pictures`).toPromise();
   }
 
-  getAll(): Anuncio[] {
-    return this.anuncios;
+  getById(id: number): Promise<Anuncio | undefined> {
+    return this.http.get<Anuncio>(`${this.baseURL}/${id}?_embed=pictures`).toPromise();
   }
 
-  getById(id: number): Anuncio | undefined {
-    return this.anuncios.find(anuncio => anuncio.id === id);
-  }
-
-  save(anuncio: Anuncio): void {
+  save(anuncio: Anuncio): Promise<Anuncio | undefined> {
     if (!anuncio.id) {
-      anuncio.id = this.getNextId();
-      this.anuncios.push(anuncio);
-    } else {
-      let index = this.anuncios.findIndex(_anuncio => _anuncio.id === anuncio.id);
-      this.anuncios[index] = anuncio;
+      return this.http.post<Anuncio>(this.baseURL, anuncio).toPromise();
     }
 
-    localStorage.setItem(KEY_ANUNCIOS, JSON.stringify(this.anuncios));
+    return this.http.put<Anuncio>(`${this.baseURL}/${anuncio.id}`, anuncio).toPromise();
+  }
+
+  savePicture(anuncio: Anuncio, picture: Picture): Promise<Picture | undefined> {
+    picture.anuncioId = anuncio.id;
+    return this.http.post<Picture>(`${this.picturesURL}`, picture).toPromise();
+  }
+
+  delete(anuncio: Anuncio): Promise<Anuncio | undefined> {
+    return this.http.delete<Anuncio>(`${this.baseURL}/${anuncio.id}`).toPromise();
   }
 }

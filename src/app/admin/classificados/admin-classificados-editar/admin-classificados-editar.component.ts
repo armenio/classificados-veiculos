@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Anuncio} from "../../../models/anuncio";
 import {AnunciosService} from "../../../anuncios.service";
 import {ActivatedRoute} from "@angular/router";
+import {Picture} from "../../../models/picture";
 
 @Component({
   selector: 'app-admin-classificados-editar',
@@ -10,17 +11,25 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class AdminClassificadosEditarComponent implements OnInit {
   anuncio: Anuncio = new Anuncio();
+  pictures: Picture[] = [];
 
   constructor(private route: ActivatedRoute, private anunciosService: AnunciosService) {
   }
 
-  getAnuncio(id: number): Anuncio | undefined {
-    return this.anunciosService.getById(id);
+  getAnuncio(id: number): void {
+    this.anunciosService.getById(id).then((anuncio: Anuncio | undefined) => {
+      this.anuncio = anuncio!;
+
+      if (anuncio !== undefined) {
+        this.pictures = anuncio.pictures;
+        anuncio.pictures = [];
+      }
+    });
   }
 
   ngOnInit() {
     let id: number = +this.route.snapshot.params['id'];
 
-    this.anuncio = this.getAnuncio(id)!;
+    this.getAnuncio(id);
   }
 }

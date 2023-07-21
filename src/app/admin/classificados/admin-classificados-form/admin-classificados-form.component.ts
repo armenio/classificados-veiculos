@@ -3,6 +3,7 @@ import {Anuncio, BRANDS, COLORS, TRANSMISSIONS} from "../../../models/anuncio";
 import {Picture} from "../../../models/picture";
 import {AnunciosService} from "../../../anuncios.service";
 import {Router} from "@angular/router";
+import {compress, decompress} from 'lz-string';
 
 @Component({
   selector: 'app-admin-classificados-form',
@@ -11,6 +12,7 @@ import {Router} from "@angular/router";
 })
 export class AdminClassificadosFormComponent implements OnInit {
   @Input() model: Anuncio = new Anuncio();
+  @Input() pictures: Picture[] = [];
 
   constructor(private anunciosService: AnunciosService, private router: Router) {
   }
@@ -19,11 +21,16 @@ export class AdminClassificadosFormComponent implements OnInit {
   brands: string[] = [];
   transmissions: string[] = [];
   colors: string[] = [];
-  pictures: any;
+  pics: any;
 
   onSubmit() {
-    this.anunciosService.save(this.model);
-    this.router.navigate(['/admin/classificados']);
+    this.anunciosService.save(this.model).then((anuncio: Anuncio | undefined) => {
+      for (let picture of this.pictures) {
+        this.anunciosService.savePicture(anuncio!, picture);
+      }
+    }).finally(() => {
+      this.router.navigate(['/admin/classificados']);
+    });
   }
 
   ngOnInit() {
@@ -37,21 +44,25 @@ export class AdminClassificadosFormComponent implements OnInit {
       return;
     }
 
-    this.model.pictures = [];
+    this.pictures = [];
 
     for (let file of event.target.files) {
-      let picture = new Picture();
+      /*let picture = new Picture();
       picture.src = URL.createObjectURL(file);
-      this.model.pictures.push(picture);
+      this.model.pictures.push(picture);*/
 
-      /*let reader = new FileReader();
+      let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
         let picture = new Picture();
-        picture.src = `${reader.result}`;
+        picture.src = compress(`${reader.result}`);
 
-        this.model.pictures.push(picture);
-      };*/
+        this.pictures.push(picture);
+      };
     }
+  }
+
+  decompress(str: string): string {
+    return decompress(str);
   }
 }

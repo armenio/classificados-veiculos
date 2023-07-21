@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 
-import {Observable, of} from 'rxjs';
-import {tap, delay} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
 import {UsersService} from "./users.service";
 import {User} from "./models/user";
 
@@ -9,15 +8,21 @@ import {User} from "./models/user";
   providedIn: 'root'
 })
 export class AuthenticationService {
+  private observable = new Subject<boolean>();
+
+
   constructor(private userService: UsersService) {
   }
 
   isLoggedIn = false;
 
-  login(username: string, password: string): void {
-    let user = this.userService.getByUsernameAndPassword(username, password);
-
-    this.isLoggedIn = user !== undefined;
+  login(username: string, password: string): Observable<void> {
+    return new Observable<void>(observer => {
+      this.userService.getByUsernameAndPassword(username, password).subscribe((users: User[] | undefined) => {
+        this.isLoggedIn = users !== undefined && users.length === 1;
+        observer.next();
+      });
+    });
   }
 
   logout(): void {
