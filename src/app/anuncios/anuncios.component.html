@@ -1,0 +1,14 @@
+<div class="py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h2 class="mb-5 text-center text-lg-left">Anúncios</h2>
+      </div>
+    </div>
+    <div class="items">
+      <div class="item" *ngFor="let anuncio of anuncios">
+        <app-card-line [anuncio]="anuncio"></app-card-line>
+      </div>
+    </div>
+  </div>
+</div>

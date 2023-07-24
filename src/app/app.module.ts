@@ -13,6 +13,8 @@ import {CardComponent} from './card/card.component';
 import {FooterComponent} from './footer/footer.component';
 import {FormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { AnunciosComponent } from './anuncios/anuncios.component';
+import { CardLineComponent } from './card-line/card-line.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import {HttpClientModule} from "@angular/common/http";
     HeaderComponent,
     BannerComponent,
     CardComponent,
-    FooterComponent
+    FooterComponent,
+    AnunciosComponent,
+    CardLineComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,21 @@
+<div class="d-lg-flex justify-content-between align-items-center mb-4 pb-4">
+  <div class="d-block w-100">
+    <div class="d-flex justify-content-start row">
+      <div class="img d-block col-4 col-lg-3 text-center mb-2">
+        <img src="{{this.decompress(this.anuncio.pictures[0].src)}}">
+      </div>
+      <div class="d-block col-8 col-lg-9 pr-lg-5">
+        <h4 class="mb-0">
+          {{anuncio.title}} <span class="badge badge-success" *ngIf="this.anuncio.isHighlight">DESTAQUE</span>
+        </h4>
+        <p *ngIf="anuncio.description" class="text-muted">
+          <small>{{anuncio.description| slice:0:170}}...</small>
+        </p>
+        <h5 class="mb-2">
+          {{anuncio.price|currency:'BRL'}}
+        </h5>
+      </div>
+    </div>
+  </div>
+  <a [routerLink]="['/anuncio', anuncio.id]" class="d-block btn btn-sm btn-outline-primary text-nowrap py-3 px-5">Ver detalhes</a>
+</div>

@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {LayoutComponent} from "./layout/layout.component";
 import {IndexComponent} from "./index/index.component";
 import {DetalhesComponent} from "./detalhes/detalhes.component";
+import {AnunciosComponent} from "./anuncios/anuncios.component";
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {path: '', component: IndexComponent},
+      {path: 'anuncios', component: AnunciosComponent},
       {path: 'anuncio/:id', component: DetalhesComponent}
     ]
   },
