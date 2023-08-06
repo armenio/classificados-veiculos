@@ -27,7 +27,7 @@ https://www.figma.com/file/L2f6fQ3SFwcXULZ2gae2XS/ADM-INTERNA?type=design&node-i
 - [x] Apresentar uma lista de dados com a diretiva estrutural ngFor.
 - [x] Usar a diretiva ngIf
 - [x] Formatar a apresentação de dados com Pipes.
-- [] Build e deploy da aplicação.
+- [x] Build e deploy da aplicação.
 
 ## Manual de execução
 - Clonar o repositório com `git clone`
