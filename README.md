@@ -4,6 +4,8 @@ Projeto Angular da disciplina CETEJ5 - Frameworks Web (2022_01-2022_03)
 
 ## Endereço de Deploy - GitHub Pages
 
+https://armenio.github.io/classificados-veiculos/
+
 ## Protótipo
 
 https://www.figma.com/file/L2f6fQ3SFwcXULZ2gae2XS/ADM-INTERNA?type=design&node-id=0-1&mode=design
