@@ -6,7 +6,7 @@ Projeto Angular da disciplina CETEJ5 - Frameworks Web (2022_01-2022_03)
 
 ## Protótipo
 
-https://www.figma.com/file/a1VDbO1aNfZyulQPxT99OE/beleza-em-dia?node-id=3%3A80
+https://www.figma.com/file/L2f6fQ3SFwcXULZ2gae2XS/ADM-INTERNA?type=design&node-id=0-1&mode=design
 
 ## Checklist
 
